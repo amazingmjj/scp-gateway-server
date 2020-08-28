@@ -1,0 +1,56 @@
+spring:
+  proxy:
+    url: 192.168.80.210
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: account-data-provider
+          uri: http://${spring.proxy.url}:8801/
+          predicates:
+            - Path=/api/account/**
+        - id: basic-data-provider
+          uri: http://localhost:8802/
+#          uri: http://${spring.proxy.url}:8802/
+          predicates:
+            - Path=/api/basic/**
+        - id: purchase-data-provider
+          uri: http://localhost:8803/
+#          uri: http://${spring.proxy.url}:8803/
+          predicates:
+            - Path=/api/purchase/**
+        - id: wechat-data-provider
+          uri: http://${spring.proxy.url}:8804/
+          predicates:
+            - Path=/api/wechat/**
+        - id: mq-data-provider
+          uri: http://${spring.proxy.url}:8805/
+          predicates:
+            - Path=/api/mq/**
+        - id: warehouse-data-provider
+          uri: http://${spring.proxy.url}:8806/
+          predicates:
+            - Path=/api/warehouse/**
+        - id: crm-data-provider
+          uri: http://${spring.proxy.url}:8807/
+          predicates:
+            - Path=/api/crm/**
+        - id: workflow-data-provider
+          uri: http://${spring.proxy.url}:8898/
+          predicates:
+            - Path=/api/workflow/**
+        - id: bankadaptor-data-provider
+#          uri: lb://bankadaptor-data-provider
+          uri: http://${spring.proxy.url}:8899/
+          predicates:
+            - Path=/api/adaptor/**
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://${spring.proxy.url}:8761/eureka/

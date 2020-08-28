@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    gateway:
+      locator:
+        enabled: true
+        lowerCaseServiceId: true
+      routes:
+        - id: bankadaptor-data-provider
+#          uri: lb://bankadaptor-data-provider
+          uri: http://192.168.20.148:8899/
+          predicates:
+            - Path=/api/adaptor/**
+        - id: mq-data-provider
+          uri: http://192.168.20.40:8805/
+          predicates:
+            - Path=/api/mq/**
+        - id: wechat-data-provider
+          uri: http://192.168.20.40:8804/
+          predicates:
+            - Path=/api/wechat/**
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://192.168.20.40:8761/eureka/

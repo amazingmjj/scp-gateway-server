@@ -1,0 +1,3 @@
+org\zhd\gateway\config\SwaggerProvider.class
+org\zhd\gateway\ScpGatewayServerApplication.class
+org\zhd\gateway\controller\SwaggerController.class

@@ -1,0 +1,23 @@
+server:
+  port: 9901
+spring:
+  application:
+    name: scp-gateway-provider
+  profiles:
+    active:
+      - dev
+
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+    org.springframework.http.server.reactive: debug
+    org.springframework.web.reactive: debug
+    reactor.ipc.netty: debug
+
+management:
+  server:
+    port: 9801
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
